@@ -13,7 +13,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   Users,
   GitFork,
-  Star,
   FileText,
   GitPullRequest,
   Activity,
@@ -224,10 +223,9 @@ export function GitHubDashboard({ stats }: GitHubDashboardProps) {
           ) : (
             <div className="text-center py-8">
               <div className="text-slate-400 text-sm">
-                {stats.topLanguages === undefined ?
-                  "Loading language data..." :
-                  "No language data available"
-                }
+                {stats.topLanguages === undefined
+                  ? "Loading language data..."
+                  : "No language data available"}
               </div>
               <div className="text-xs text-slate-500 mt-2">
                 Debug: topLanguages = {JSON.stringify(stats.topLanguages)}

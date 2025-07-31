@@ -3,7 +3,12 @@ import { GitHubRepoList } from "@/components/github-repo";
 
 export default async function Home() {
   const statsData = async () => {
-    const response = await fetch("http://localhost:3000/api/stats");
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stats`,
+      {
+        next: { revalidate: 3600 }, // Revalidate every hour
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch GitHub stats");
     }
