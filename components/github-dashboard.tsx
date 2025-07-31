@@ -29,7 +29,16 @@ interface GitHubStats {
   repositories: {
     totalCount: number;
     nodes?: Array<{
-      id: string;
+      name: string;
+      description?: string;
+      url: string;
+      forkCount: number;
+      updatedAt: string;
+      createdAt: string;
+      primaryLanguage?: {
+        name: string;
+        color: string;
+      };
       languages: {
         edges: Array<{
           size: number;

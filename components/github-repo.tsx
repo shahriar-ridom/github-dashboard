@@ -16,7 +16,6 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface Repository {
-  id: string;
   name: string;
   url: string;
   description?: string;
@@ -104,7 +103,7 @@ export function GitHubRepoList({
             <>
               {displayedRepos.map((repo, index) => (
                 <div
-                  key={repo.id || index}
+                  key={`${repo.name}-${index}`}
                   className="group p-4 rounded-lg border border-slate-700/40 hover:border-slate-600/60 transition-all duration-200 bg-slate-900/30 hover:bg-slate-900/50"
                 >
                   <div className="flex items-start justify-between">
