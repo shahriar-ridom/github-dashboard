@@ -3,12 +3,27 @@ import { GitHubRepoList } from "@/components/github-repo";
 
 export default async function Home() {
   const statsData = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/stats`,
-      {
-        next: { revalidate: 3600 }, // Revalidate every hour
+    // More robust URL detection for different environments
+    const getBaseUrl = () => {
+      // In production on Vercel with custom domain
+      if (process.env.VERCEL_ENV === 'production' && process.env.NEXT_PUBLIC_SITE_URL) {
+        return process.env.NEXT_PUBLIC_SITE_URL;
       }
-    );
+
+      // On Vercel (preview/production with generated URL)
+      if (process.env.VERCEL_URL) {
+        return `https://${process.env.VERCEL_URL}`;
+      }
+
+      // Local development
+      return "http://localhost:3000";
+    };
+
+    const baseUrl = getBaseUrl();
+
+    const response = await fetch(`${baseUrl}/api/stats`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch GitHub stats");
     }
